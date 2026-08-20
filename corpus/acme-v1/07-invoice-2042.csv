@@ -1,0 +1,2 @@
+invoice_number,invoice_date,service_date,description,quantity,unit_price,total,currency
+INV-2042,2025-03-01,2025-02-10,Platform licences - February 2025,260,52.00,13520.00,GBP

@@ -1,0 +1,88 @@
+pack: procurement-baseline
+version: 1
+
+# A new obligation is a data change. Adding a rule here needs no code; adding a
+# new *kind* of rule needs one function in app/rules/deterministic.py.
+#
+# stage: deterministic -> arithmetic and presence. No model, no cost, no
+#                         possibility of a hallucinated finding.
+# stage: grounded      -> retrieval + a model verdict that must cite exact text.
+#                         A verdict whose citation does not verify is discarded.
+
+rules:
+  - id: PT-01
+    title: Payment terms must not exceed 45 days
+    severity: high
+    stage: deterministic
+    check: term_max
+    params:
+      term_key: payment_terms_days
+      max: 45
+
+  - id: RN-01
+    title: Non-renewal notice window must be at least 60 days
+    severity: high
+    stage: deterministic
+    check: term_min
+    params:
+      term_key: renewal_notice_days
+      min: 60
+
+  - id: RQ-01
+    title: A unit price must be stated somewhere in the family
+    severity: high
+    stage: deterministic
+    check: term_required
+    params:
+      term_key: unit_price
+
+  - id: RQ-02
+    title: A liability cap must be stated
+    severity: high
+    stage: deterministic
+    check: term_required
+    params:
+      term_key: liability_cap
+
+  - id: RQ-03
+    title: An effective date must be stated
+    severity: medium
+    stage: deterministic
+    check: term_required
+    params:
+      term_key: effective_date
+
+  - id: NC-01
+    title: The unit price must not be contested between sources
+    severity: high
+    stage: deterministic
+    check: not_contested
+    params:
+      term_key: unit_price
+
+  - id: INV-01
+    title: Every invoice line must match the contracted rate in force on its service date
+    severity: critical
+    stage: deterministic
+    check: invoice_matches_contract
+    params:
+      tolerance: 0.01
+
+  - id: SLA-01
+    title: Availability commitment must be at least 99.9%, measured monthly
+    severity: medium
+    stage: grounded
+    question: >-
+      Does this agreement commit to monthly availability of at least 99.9 percent,
+      measured across each calendar month? Answer 'fail' if the committed figure is
+      lower than 99.9 percent.
+    retrieval_query: monthly availability service level uptime percentage platform
+
+  - id: CONF-01
+    title: A confidentiality obligation must be present
+    severity: medium
+    stage: grounded
+    question: >-
+      Does this agreement place a confidentiality obligation on both parties covering
+      information disclosed by the other party?
+    retrieval_query: confidentiality confidential information disclose third party consent

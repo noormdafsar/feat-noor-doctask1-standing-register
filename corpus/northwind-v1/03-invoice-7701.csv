@@ -1,0 +1,2 @@
+invoice_number,invoice_date,service_date,description,quantity,unit_price,total,currency
+INV-7701,2024-06-01,2024-05-05,Platform licences - May 2024,120,30.00,3600.00,GBP

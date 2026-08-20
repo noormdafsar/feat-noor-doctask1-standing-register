@@ -1,0 +1,9 @@
+web/node_modules
+web/dist
+.git
+__pycache__
+**/__pycache__
+.pytest_cache
+.venv
+watched
+*.log

@@ -1,0 +1,2 @@
+invoice_number,invoice_date,service_date,description,quantity,unit_price,total,currency
+INV-2041,2024-09-01,2024-08-15,Platform licences - August 2024,250,45.00,11250.00,GBP

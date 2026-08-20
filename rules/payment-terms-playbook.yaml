@@ -1,0 +1,33 @@
+pack: payment-terms-playbook
+version: 1
+
+# A deliberately narrow second pack. Its purpose is to demonstrate that the rules
+# a run is checked against are chosen per run, not baked into the system: the same
+# corpus produces a different findings list under a different playbook.
+
+rules:
+  - id: PB-01
+    title: Payment terms must not exceed 30 days under the strict playbook
+    severity: critical
+    stage: deterministic
+    check: term_max
+    params:
+      term_key: payment_terms_days
+      max: 30
+
+  - id: PB-02
+    title: Billing frequency must be stated
+    severity: medium
+    stage: deterministic
+    check: term_required
+    params:
+      term_key: billing_frequency
+
+  - id: PB-03
+    title: Termination for convenience must be available on 90 days notice or less
+    severity: medium
+    stage: deterministic
+    check: term_max
+    params:
+      term_key: termination_for_convenience_days
+      max: 90

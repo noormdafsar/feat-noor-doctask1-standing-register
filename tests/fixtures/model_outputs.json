@@ -1,0 +1,538 @@
+{
+  "_readme": [
+    "Deterministic canned model output for the behaviour suite. Keyed on task plus a",
+    "stable key (document filename, or family:rule id) rather than on a prompt hash,",
+    "so editing a prompt does not break tests that are about system behaviour.",
+    "",
+    "These are NOT asserted to be correct model output. Two entries are deliberately",
+    "wrong so the system has something real to catch:",
+    "  * 01-master-services-agreement.md claims a governing law of Singapore with a",
+    "    quote that does not exist in the document -> verify_spans must drop it and",
+    "    record a gap, and the register must read 'not stated in sources'.",
+    "  * 10-mystery-note.md never classifies above the confidence floor -> the graph",
+    "    must retry at the deep tier and then escalate to a human.",
+    "Every other quote below appears verbatim in corpus/."
+  ],
+
+  "classify": {
+    "01-master-services-agreement.md": {
+      "doc_type": "master_agreement",
+      "confidence": 0.96,
+      "document_date": "2024-01-01",
+      "amends_reference": "",
+      "reasoning": "Numbered clauses, two named parties, term and liability sections."
+    },
+    "02-order-form-2024.md": {
+      "doc_type": "order_form",
+      "confidence": 0.94,
+      "document_date": "2024-01-01",
+      "amends_reference": "",
+      "reasoning": "Quantities and unit pricing under a referenced master agreement."
+    },
+    "03-amendment-1.md": {
+      "doc_type": "amendment",
+      "confidence": 0.95,
+      "document_date": "2024-06-12",
+      "amends_reference": "MSA-2024-0117",
+      "reasoning": "Explicitly amends numbered clauses of a master agreement."
+    },
+    "04-amendment-2.md": {
+      "doc_type": "amendment",
+      "confidence": 0.95,
+      "document_date": "2024-12-04",
+      "amends_reference": "MSA-2024-0117",
+      "reasoning": "Second amendment to the same master agreement."
+    },
+    "05-order-form-2025-renewal.md": {
+      "doc_type": "order_form",
+      "confidence": 0.91,
+      "document_date": "2024-12-18",
+      "amends_reference": "",
+      "reasoning": "Renewal order form with its own pricing."
+    },
+    "06-invoice-2041.csv": {
+      "doc_type": "invoice",
+      "confidence": 0.97,
+      "document_date": "2024-09-01",
+      "amends_reference": "",
+      "reasoning": "Invoice number, service date and line totals."
+    },
+    "07-invoice-2042.csv": {
+      "doc_type": "invoice",
+      "confidence": 0.97,
+      "document_date": "2025-03-01",
+      "amends_reference": "",
+      "reasoning": "Invoice number, service date and line totals."
+    },
+    "08-amendment-3.md": {
+      "doc_type": "amendment",
+      "confidence": 0.94,
+      "document_date": "2025-06-02",
+      "amends_reference": "MSA-2024-0117",
+      "reasoning": "Third amendment, price only."
+    },
+    "09-amendment-4-hostile.md": {
+      "doc_type": "amendment",
+      "confidence": 0.93,
+      "document_date": "2025-08-03",
+      "amends_reference": "MSA-2024-0117",
+      "reasoning": "Fourth amendment. Also contains a paragraph addressed to the reader."
+    },
+    "10-mystery-note.md": {
+      "doc_type": "unknown",
+      "confidence": 0.28,
+      "document_date": "",
+      "amends_reference": "",
+      "reasoning": "Free-text internal note. Not one of the recognised commercial types."
+    },
+    "01-northwind-msa.md": {
+      "doc_type": "master_agreement",
+      "confidence": 0.96,
+      "document_date": "2023-09-01",
+      "amends_reference": "",
+      "reasoning": "Numbered clauses and two named parties."
+    },
+    "02-northwind-order-form.md": {
+      "doc_type": "order_form",
+      "confidence": 0.93,
+      "document_date": "2023-09-01",
+      "amends_reference": "",
+      "reasoning": "Quantities and unit pricing."
+    },
+    "03-invoice-7701.csv": {
+      "doc_type": "invoice",
+      "confidence": 0.97,
+      "document_date": "2024-06-01",
+      "amends_reference": "",
+      "reasoning": "Invoice number, service date and line totals."
+    },
+    "__default__": {
+      "doc_type": "unknown",
+      "confidence": 0.2,
+      "document_date": "",
+      "amends_reference": "",
+      "reasoning": "No fixture for this document."
+    }
+  },
+
+  "extract_terms": {
+    "01-master-services-agreement.md": {
+      "facts": [
+        {
+          "key": "parties",
+          "value": "Vertex Cloud Systems Ltd (Supplier) / Acme Industrial Supply Ltd (Customer)",
+          "unit": "",
+          "effective_from": "2024-01-01",
+          "confidence": 0.95,
+          "quote": "Vertex Cloud Systems Ltd (\"Supplier\") and Acme Industrial Supply Ltd (\"Customer\")"
+        },
+        {
+          "key": "effective_date",
+          "value": "2024-01-01",
+          "unit": "",
+          "effective_from": "2024-01-01",
+          "confidence": 0.97,
+          "quote": "Effective date: 1 January 2024"
+        },
+        {
+          "key": "initial_term_months",
+          "value": "24",
+          "unit": "months",
+          "effective_from": "2024-01-01",
+          "confidence": 0.94,
+          "quote": "continues for an initial term of 24 months"
+        },
+        {
+          "key": "renewal_type",
+          "value": "automatic",
+          "unit": "",
+          "effective_from": "2024-01-01",
+          "confidence": 0.92,
+          "quote": "renews automatically for successive periods of 12 months"
+        },
+        {
+          "key": "renewal_notice_days",
+          "value": "60",
+          "unit": "days",
+          "effective_from": "2024-01-01",
+          "confidence": 0.93,
+          "quote": "written notice of non-renewal at least 60 days before the end of the then-current term"
+        },
+        {
+          "key": "payment_terms_days",
+          "value": "30",
+          "unit": "days",
+          "effective_from": "2024-01-01",
+          "confidence": 0.96,
+          "quote": "The Customer shall pay each undisputed invoice within 30 days of the invoice date."
+        },
+        {
+          "key": "billing_frequency",
+          "value": "quarterly",
+          "unit": "",
+          "effective_from": "2024-01-01",
+          "confidence": 0.9,
+          "quote": "Invoices are issued quarterly in advance."
+        },
+        {
+          "key": "sla_uptime_pct",
+          "value": "99.5",
+          "unit": "%",
+          "effective_from": "2024-01-01",
+          "confidence": 0.95,
+          "quote": "monthly availability of at least 99.5% for the Platform"
+        },
+        {
+          "key": "sla_credit_pct",
+          "value": "5",
+          "unit": "%",
+          "effective_from": "2024-01-01",
+          "confidence": 0.9,
+          "quote": "a service credit of 5% of the monthly charge for the affected month"
+        },
+        {
+          "key": "liability_cap",
+          "value": "12",
+          "unit": "months of charges",
+          "effective_from": "2024-01-01",
+          "confidence": 0.93,
+          "quote": "limited to the total charges paid in the 12 months preceding the event giving rise to the claim"
+        },
+        {
+          "key": "termination_for_convenience_days",
+          "value": "90",
+          "unit": "days",
+          "effective_from": "2024-01-01",
+          "confidence": 0.94,
+          "quote": "terminate this Agreement for convenience on 90 days written notice"
+        },
+        {
+          "key": "assignment_restricted",
+          "value": "yes",
+          "unit": "",
+          "effective_from": "2024-01-01",
+          "confidence": 0.92,
+          "quote": "Neither party may assign this Agreement without the prior written consent of the other party"
+        },
+        {
+          "key": "governing_law",
+          "value": "Singapore",
+          "unit": "",
+          "effective_from": "2024-01-01",
+          "confidence": 0.88,
+          "quote": "This Agreement is governed by the laws of Singapore."
+        }
+      ]
+    },
+    "02-order-form-2024.md": {
+      "facts": [
+        {
+          "key": "unit_price",
+          "value": "42.00",
+          "unit": "GBP per licence per month",
+          "effective_from": "2024-01-01",
+          "confidence": 0.96,
+          "quote": "Unit price: GBP 42.00 per licence per month"
+        },
+        {
+          "key": "billing_frequency",
+          "value": "quarterly",
+          "unit": "",
+          "effective_from": "2024-01-01",
+          "confidence": 0.93,
+          "quote": "Billing: quarterly in advance"
+        }
+      ]
+    },
+    "03-amendment-1.md": {
+      "facts": [
+        {
+          "key": "payment_terms_days",
+          "value": "45",
+          "unit": "days",
+          "effective_from": "2024-07-01",
+          "confidence": 0.95,
+          "quote": "The Customer shall pay each undisputed invoice within 45 days of the invoice date."
+        },
+        {
+          "key": "unit_price",
+          "value": "45.00",
+          "unit": "GBP per licence per month",
+          "effective_from": "2024-07-01",
+          "confidence": 0.96,
+          "quote": "is increased to GBP 45.00 per licence per month with effect from 1 July 2024"
+        }
+      ]
+    },
+    "04-amendment-2.md": {
+      "facts": [
+        {
+          "key": "unit_price",
+          "value": "48.50",
+          "unit": "GBP per licence per month",
+          "effective_from": "2025-01-01",
+          "confidence": 0.96,
+          "quote": "The unit price is increased to GBP 48.50 per licence per month with effect from 1 January 2025."
+        },
+        {
+          "key": "payment_terms_days",
+          "value": "60",
+          "unit": "days",
+          "effective_from": "2025-01-01",
+          "confidence": 0.95,
+          "quote": "the Customer shall pay each undisputed invoice within 60 days of the invoice date"
+        },
+        {
+          "key": "renewal_notice_days",
+          "value": "30",
+          "unit": "days",
+          "effective_from": "2025-01-01",
+          "confidence": 0.94,
+          "quote": "the notice period for non-renewal is reduced to 30 days before the end of the then-current term"
+        }
+      ]
+    },
+    "05-order-form-2025-renewal.md": {
+      "facts": [
+        {
+          "key": "unit_price",
+          "value": "47.00",
+          "unit": "GBP per licence per month",
+          "effective_from": "2025-01-01",
+          "confidence": 0.93,
+          "quote": "Unit price: GBP 47.00 per licence per month"
+        }
+      ]
+    },
+    "08-amendment-3.md": {
+      "facts": [
+        {
+          "key": "unit_price",
+          "value": "51.00",
+          "unit": "GBP per licence per month",
+          "effective_from": "2025-07-01",
+          "confidence": 0.95,
+          "quote": "The unit price is increased to GBP 51.00 per licence per month with effect from 1 July 2025."
+        }
+      ]
+    },
+    "09-amendment-4-hostile.md": {
+      "facts": [
+        {
+          "key": "unit_price",
+          "value": "53.00",
+          "unit": "GBP per licence per month",
+          "effective_from": "2025-09-01",
+          "confidence": 0.94,
+          "quote": "The unit price is increased to GBP 53.00 per licence per month with effect from 1 September 2025."
+        }
+      ]
+    },
+    "01-northwind-msa.md": {
+      "facts": [
+        {
+          "key": "parties",
+          "value": "Harbour Data Services Ltd (Supplier) / Northwind Logistics plc (Customer)",
+          "unit": "",
+          "effective_from": "2023-09-01",
+          "confidence": 0.95,
+          "quote": "Harbour Data Services Ltd (\"Supplier\") and Northwind Logistics plc (\"Customer\")"
+        },
+        {
+          "key": "effective_date",
+          "value": "2023-09-01",
+          "unit": "",
+          "effective_from": "2023-09-01",
+          "confidence": 0.97,
+          "quote": "Effective date: 1 September 2023"
+        },
+        {
+          "key": "initial_term_months",
+          "value": "36",
+          "unit": "months",
+          "effective_from": "2023-09-01",
+          "confidence": 0.94,
+          "quote": "continues for an initial term of 36 months"
+        },
+        {
+          "key": "renewal_type",
+          "value": "automatic",
+          "unit": "",
+          "effective_from": "2023-09-01",
+          "confidence": 0.92,
+          "quote": "renews automatically for successive periods of 12 months"
+        },
+        {
+          "key": "renewal_notice_days",
+          "value": "90",
+          "unit": "days",
+          "effective_from": "2023-09-01",
+          "confidence": 0.94,
+          "quote": "written notice of non-renewal at least 90 days before the end of the then-current term"
+        },
+        {
+          "key": "payment_terms_days",
+          "value": "30",
+          "unit": "days",
+          "effective_from": "2023-09-01",
+          "confidence": 0.96,
+          "quote": "The Customer shall pay each undisputed invoice within 30 days of the invoice date."
+        },
+        {
+          "key": "billing_frequency",
+          "value": "monthly",
+          "unit": "",
+          "effective_from": "2023-09-01",
+          "confidence": 0.9,
+          "quote": "Invoices are issued monthly in arrears."
+        },
+        {
+          "key": "sla_uptime_pct",
+          "value": "99.9",
+          "unit": "%",
+          "effective_from": "2023-09-01",
+          "confidence": 0.95,
+          "quote": "monthly availability of at least 99.9% for the Platform"
+        },
+        {
+          "key": "sla_credit_pct",
+          "value": "10",
+          "unit": "%",
+          "effective_from": "2023-09-01",
+          "confidence": 0.9,
+          "quote": "a service credit of 10% of the monthly charge for the affected month"
+        },
+        {
+          "key": "liability_cap",
+          "value": "24",
+          "unit": "months of charges",
+          "effective_from": "2023-09-01",
+          "confidence": 0.93,
+          "quote": "limited to the total charges paid in the 24 months preceding the event giving rise to the claim"
+        },
+        {
+          "key": "termination_for_convenience_days",
+          "value": "120",
+          "unit": "days",
+          "effective_from": "2023-09-01",
+          "confidence": 0.93,
+          "quote": "terminate this Agreement for convenience on 120 days written notice"
+        },
+        {
+          "key": "assignment_restricted",
+          "value": "yes",
+          "unit": "",
+          "effective_from": "2023-09-01",
+          "confidence": 0.92,
+          "quote": "Neither party may assign this Agreement without the prior written consent of the other party"
+        },
+        {
+          "key": "governing_law",
+          "value": "Scotland",
+          "unit": "",
+          "effective_from": "2023-09-01",
+          "confidence": 0.94,
+          "quote": "This Agreement is governed by the laws of Scotland."
+        }
+      ]
+    },
+    "02-northwind-order-form.md": {
+      "facts": [
+        {
+          "key": "unit_price",
+          "value": "30.00",
+          "unit": "GBP per licence per month",
+          "effective_from": "2023-09-01",
+          "confidence": 0.96,
+          "quote": "Unit price: GBP 30.00 per licence per month"
+        },
+        {
+          "key": "billing_frequency",
+          "value": "monthly",
+          "unit": "",
+          "effective_from": "2023-09-01",
+          "confidence": 0.93,
+          "quote": "Billing: monthly in arrears"
+        }
+      ]
+    },
+    "10-mystery-note.md": { "facts": [] },
+    "__default__": { "facts": [] }
+  },
+
+  "extract_invoice": {
+    "06-invoice-2041.csv": {
+      "lines": [
+        {
+          "invoice_number": "INV-2041",
+          "service_date": "2024-08-15",
+          "description": "Platform licences - August 2024",
+          "quantity": "250",
+          "unit_price": "45.00",
+          "total": "11250.00",
+          "quote": "INV-2041 | 2024-09-01 | 2024-08-15 | Platform licences - August 2024 | 250 | 45.00 | 11250.00 | GBP"
+        }
+      ]
+    },
+    "07-invoice-2042.csv": {
+      "lines": [
+        {
+          "invoice_number": "INV-2042",
+          "service_date": "2025-02-10",
+          "description": "Platform licences - February 2025",
+          "quantity": "260",
+          "unit_price": "52.00",
+          "total": "13520.00",
+          "quote": "INV-2042 | 2025-03-01 | 2025-02-10 | Platform licences - February 2025 | 260 | 52.00 | 13520.00 | GBP"
+        }
+      ]
+    },
+    "03-invoice-7701.csv": {
+      "lines": [
+        {
+          "invoice_number": "INV-7701",
+          "service_date": "2024-05-05",
+          "description": "Platform licences - May 2024",
+          "quantity": "120",
+          "unit_price": "30.00",
+          "total": "3600.00",
+          "quote": "INV-7701 | 2024-06-01 | 2024-05-05 | Platform licences - May 2024 | 120 | 30.00 | 3600.00 | GBP"
+        }
+      ]
+    },
+    "__default__": { "lines": [] }
+  },
+
+  "judge_rule": {
+    "acme-v1:SLA-01": {
+      "verdict": "fail",
+      "confidence": 0.93,
+      "detail": "The agreement commits to 99.5% monthly availability, which is below the 99.9% the rule requires.",
+      "quote": "monthly availability of at least 99.5% for the Platform"
+    },
+    "northwind-v1:SLA-01": {
+      "verdict": "pass",
+      "confidence": 0.94,
+      "detail": "The agreement commits to 99.9% monthly availability measured across each calendar month.",
+      "quote": "monthly availability of at least 99.9% for the Platform"
+    },
+    "acme-v1:CONF-01": {
+      "verdict": "pass",
+      "confidence": 0.91,
+      "detail": "Clause 5.1 places a mutual confidentiality obligation on both parties.",
+      "quote": "Each party shall keep confidential all information disclosed by the other party"
+    },
+    "northwind-v1:CONF-01": {
+      "verdict": "pass",
+      "confidence": 0.9,
+      "detail": "Clause 5.1 places a mutual confidentiality obligation on both parties.",
+      "quote": "Each party shall keep confidential all information disclosed by the other party"
+    },
+    "__default__": {
+      "verdict": "unsupported",
+      "confidence": 0.15,
+      "detail": "No fixture is defined for this rule and family, so no verdict is claimed.",
+      "quote": ""
+    }
+  }
+}
