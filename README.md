@@ -7,6 +7,13 @@ claim points at a character range in a source document.
 
 Built for the SuperDocs Round 2 engineering task (Task 1).
 
+## Demo
+
+[![Standing Register — SuperDocs Round 2 demo](https://img.youtube.com/vi/NcErPhDwxmM/hqdefault.jpg)](https://youtu.be/NcErPhDwxmM)
+
+[Watch on YouTube](https://youtu.be/NcErPhDwxmM) · [copy on Google Drive](https://drive.google.com/file/d/1XcNVpy6q7yH-pw69fVymxHaiGqDk7Nnm/view?usp=sharing)
+
+
 ---
 
 ## Run it
