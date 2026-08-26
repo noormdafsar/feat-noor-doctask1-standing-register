@@ -83,7 +83,22 @@ def _markdown(payload: dict) -> str:
 
 
 def findings(family_id: str, run_id: str | None = None) -> dict[str, Any]:
+    """Findings from one run -- the latest one unless a run is named.
+
+    Every run records its own findings, so a family that has been examined a
+    dozen times holds a dozen copies of the same five. Returning all of them
+    made the interface show sixty findings where there are five, and made "how
+    many problems does this family have?" unanswerable. The current findings are
+    the ones the current run produced.
+    """
     with session_scope() as s:
+        if run_id is None:
+            run_id = s.execute(
+                select(Finding.run_id)
+                .where(Finding.family_id == family_id)
+                .order_by(Finding.created_at.desc())
+                .limit(1)
+            ).scalar_one_or_none()
         q = select(Finding).where(Finding.family_id == family_id)
         if run_id:
             q = q.where(Finding.run_id == run_id)
